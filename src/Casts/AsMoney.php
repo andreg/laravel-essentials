@@ -4,7 +4,7 @@ namespace Andreg\Essentials\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-class MoneyCast implements CastsAttributes {
+class AsMoney implements CastsAttributes {
 
 	public function get( $model, string $key, mixed $value, array $attributes ): ?float {
 		if ( null === $value ) {
