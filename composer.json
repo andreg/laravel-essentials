@@ -3,7 +3,7 @@
     "description": "Laravel essentials package.",
     "type": "library",
     "license": "MIT",
-	"version": "1.0.0",
+	"minimum-stability": "beta",
     "autoload": {
         "psr-4": {
             "Andreg\\Essentials\\": "src/",
