@@ -1,5 +1,5 @@
 {
-    "name": "andreg/essentials",
+    "name": "andreg/laravel-essentials",
     "description": "Laravel essentials package.",
     "type": "library",
     "license": "MIT",
@@ -7,7 +7,7 @@
     "autoload": {
         "psr-4": {
             "Andreg\\Essentials\\": "src/",
-			"Tests\\": "tests/"
+	    "Tests\\": "tests/"
         }
     },
     "authors": [
@@ -27,7 +27,7 @@
     "require": {
         "illuminate/contracts": "^12.21"
     },
-	"scripts": {
-		"test": "./vendor/bin/pest"
-	}
+    "scripts": {
+	"test": "./vendor/bin/pest"
+    }
 }
