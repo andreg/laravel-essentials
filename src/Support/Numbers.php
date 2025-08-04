@@ -4,8 +4,7 @@ namespace Andreg\Essentials\Support;
 
 class Numbers {
 
-	public static function format( float $value ): string {
-		$locale    = app()->getLocale();
+	public static function format( float $value, string $locale ): string {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
 		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
 
