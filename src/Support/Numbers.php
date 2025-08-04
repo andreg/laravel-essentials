@@ -4,6 +4,14 @@ namespace Andreg\Essentials\Support;
 
 class Numbers {
 
+	public static function format( float $value ): string {
+		$locale    = app()->getLocale();
+		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
+		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
+
+		return $formatter->format( $value );
+	}
+
 	public static function normalize( string $value ): float {
 		$value = str_replace( ',', '.', $value );
 
