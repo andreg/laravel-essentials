@@ -15,7 +15,13 @@ class Numbers {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
 		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
 
-		return $formatter->format( $value );
+		$formattedValue = $formatter->format( $value );
+
+		if ( false === $formattedValue ) {
+			throw new \InvalidArgumentException( "Invalid number format for locale: $locale" );
+		}
+
+		return $formattedValue;
 	}
 
 	/**
@@ -31,7 +37,7 @@ class Numbers {
 		$value = str_replace( ',', '.', $value );
 
 		if ( substr_count( $value, '.' ) > 1 ) {
-			$lastDotPos = strrpos( $value, '.' );
+			$lastDotPos = intval( strrpos( $value, '.' ) );
 			$value      = str_replace( '.', '', substr( $value, 0, $lastDotPos ) ) . substr( $value, $lastDotPos );
 		}
 
