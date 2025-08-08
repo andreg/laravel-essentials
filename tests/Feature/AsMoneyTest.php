@@ -1,12 +1,18 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
+
+class FakeModel extends Model {
+
+}
+
 describe( 'AsMoney', function () {
 	describe( 'set', function () {
 		test( 'data casted to money saves to integer', function () {
 			$amount = 123.45;
 			$cast   = new \Andreg\Essentials\Casts\AsMoney();
 
-			expect( $cast->set( null, 'amount', $amount, [] ) )->toBe( 12345 );
+			expect( $cast->set( new FakeModel(), 'amount', $amount, [] ) )->toBe( 12345 );
 		} );
 	} );
 
@@ -15,7 +21,7 @@ describe( 'AsMoney', function () {
 			$amount = 12345;
 			$cast   = new \Andreg\Essentials\Casts\AsMoney();
 
-			expect( $cast->get( null, 'amount', $amount, [] ) )->toBe( 123.45 );
+			expect( $cast->get( new FakeModel(), 'amount', $amount, [] ) )->toBe( 123.45 );
 		} );
 	} );
 } );
