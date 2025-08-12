@@ -6,7 +6,7 @@
 	"minimum-stability": "beta",
     "autoload": {
         "psr-4": {
-            "Andreg\\Essentials\\": "src/",
+            "Andreg\\LaravelEssentials\\": "src/",
 	    "Tests\\": "tests/"
         }
     },
