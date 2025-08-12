@@ -1,6 +1,6 @@
 <?php
 
-use Andreg\Essentials\Support\Numbers;
+use Andreg\LaravelEssentials\Support\Numbers;
 
 describe( 'Numbers', function () {
 	test( 'string numbers can be normalized to float', function () {

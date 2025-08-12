@@ -1,6 +1,6 @@
 <?php
 
-namespace Andreg\Essentials\Support;
+namespace Andreg\LaravelEssentials\Support;
 
 class Numbers {
 

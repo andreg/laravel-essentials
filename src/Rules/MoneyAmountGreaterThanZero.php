@@ -1,8 +1,8 @@
 <?php
 
-namespace Andreg\Essentials\Rules;
+namespace Andreg\LaravelEssentials\Rules;
 
-use Andreg\Essentials\Support\Numbers;
+use Andreg\LaravelEssentials\Support\Numbers;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
