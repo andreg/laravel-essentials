@@ -11,9 +11,9 @@ class Numbers {
 	 * @param string $locale The locale code (e.g., 'en', 'it', 'fr', 'de').
 	 * @return string The formatted number.
 	 */
-	public static function format( float $value, string $locale ): string {
+	public static function format( float $value, string $locale, int $fractionDigits = 2 ): string {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
-		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
+		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, $fractionDigits );
 
 		$formattedValue = $formatter->format( $value );
 
