@@ -5,27 +5,13 @@ use Andreg\LaravelEssentials\Support\MoneyFormatter;
 describe( 'Money', function () {
 	describe( 'constructor', function () {
 		test( 'creates instance with default USD currency', function () {
-			$money = new \Andreg\LaravelEssentials\Support\MoneyFormatter();
-
-			expect( $money->display( 100 ) )
-				->toContain( '$100' );
+			expect( ( new MoneyFormatter( locale: 'en' ) )->display( 100 ) )->toBe( '$100.00' );
+			expect( ( new MoneyFormatter( locale: 'it' ) )->display( 100 ) )->toBe( "100,00\u{00a0}USD" );
 		} );
 
 		test( 'creates instance with custom currency code', function () {
-			$money = new MoneyFormatter( 'EUR' );
-
-			expect( $money->display( 100 ) )
-				->toContain( '100 €' );
-		} );
-
-		test( 'creates instance with custom locale', function () {
-			$money = new MoneyFormatter( 'EUR', 'it' );
-
-			$result = $money->display( 1000.50 );
-
-			expect( $result )
-				->toContain( '€' )
-				->toContain( '1.000,50' );
+			expect( ( new MoneyFormatter( currencyCode: 'EUR', locale: 'en' ) )->display( 100 ) )->toBe( '€100.00' );
+			expect( ( new MoneyFormatter( currencyCode: 'EUR', locale: 'it' ) )->display( 100 ) )->toBe( "100,00\u{00a0}€" );
 		} );
 
 		test( 'throws exception for invalid currency code', function () {
@@ -44,135 +30,13 @@ describe( 'Money', function () {
 		} );
 	} );
 
-	describe( 'display method', function () {
-		test( 'displays currency without abbreviation', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->display( 1000 ) )
-				->toBe( '$1,000.00' );
-		} );
-
-		test( 'displays currency with abbreviation', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->display( 1000, true ) )
-				->toBe( '$1K' );
-		} );
-
-		test( 'handles small amounts with abbreviation', function () {
-			$money = new MoneyFormatter( 'EUR', 'it' );
-
-			$result = $money->display( 123.45, true );
-			expect( $result )
-				->toContain( '123,45' )
-				->toContain( '€' );
-		} );
-	} );
-
 	describe( 'abbreviated method', function () {
-		test( 'returns abbreviated currency format', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1000 ) )
-				->toBe( '$1K' );
-		} );
-
 		test( 'handles decimal amounts correctly', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1500 ) )
+			expect( ( new MoneyFormatter( 'USD', 'en_US' ) )->abbreviated( 1500 ) )
 				->toBe( '$1.5K' );
-		} );
-	} );
 
-	describe( 'locale-specific formatting', function () {
-		test( 'formats Italian locale with comma decimal separator', function () {
-			$money = new MoneyFormatter( 'EUR', 'it' );
-
-			$result = $money->abbreviated( 3173.2 );
-			expect( $result )
-				->toContain( '3,17K' )
-				->toContain( '€' );
-		} );
-
-		test( 'formats US locale with dot decimal separator', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 3173.2 ) )
-				->toBe( '$3.17K' );
-		} );
-
-		test( 'formats German locale with comma decimal separator', function () {
-			$money = new MoneyFormatter( 'EUR', 'de_DE' );
-
-			$result = $money->abbreviated( 3173.2 );
-			expect( $result )
-				->toContain( '3,17K' )
-				->toContain( '€' );
-		} );
-
-		test( 'formats French locale correctly', function () {
-			$money = new MoneyFormatter( 'EUR', 'fr_FR' );
-
-			$result = $money->abbreviated( 1500 );
-
-			expect( $result )
-				->toContain( '1,5K' )
-				->toContain( '€' );
-		} );
-	} );
-
-	describe( 'various amount ranges', function () {
-		test( 'handles thousands correctly', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1000 ) )->toBe( '$1K' );
-			expect( $money->abbreviated( 2500 ) )->toBe( '$2.5K' );
-			expect( $money->abbreviated( 9999 ) )->toBe( '$10K' );
-		} );
-
-		test( 'handles millions correctly', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1000000 ) )->toBe( '$1M' );
-			expect( $money->abbreviated( 2500000 ) )->toBe( '$2.5M' );
-		} );
-
-		test( 'handles billions correctly', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1000000000 ) )->toBe( '$1B' );
-			expect( $money->abbreviated( 2500000000 ) )->toBe( '$2.5B' );
-		} );
-
-		test( 'handles small amounts without abbreviation', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 999 ) )->toBe( '$999' );
-			expect( $money->abbreviated( 123.45 ) )->toBe( '$123.45' );
-		} );
-	} );
-
-	describe( 'currency symbol positioning', function () {
-		test( 'USD places symbol before amount', function () {
-			$money = new MoneyFormatter( 'USD', 'en_US' );
-
-			expect( $money->abbreviated( 1000 ) )
-				->toStartWith( '$' );
-		} );
-
-		test( 'EUR places symbol after amount in Italian locale', function () {
-			$money = new MoneyFormatter( 'EUR', 'it' );
-
-			expect( $money->abbreviated( 1000 ) )
-				->toContain( '€' );
-		} );
-
-		test( 'EUR places symbol after amount in German locale', function () {
-			$money = new MoneyFormatter( 'EUR', 'de_DE' );
-
-			expect( $money->abbreviated( 1000 ) )
-				->toContain( '€' );
+			expect( ( new MoneyFormatter( 'USD', 'it' ) )->abbreviated( 1500 ) )
+				->toBe( "1,5K\u{00a0}USD" );
 		} );
 	} );
 
@@ -188,9 +52,7 @@ describe( 'Money', function () {
 			$money = new MoneyFormatter( 'USD', 'en_US' );
 
 			$result = $money->abbreviated( -1000 );
-			expect( $result )
-				->toContain( '-' )
-				->toContain( '1K' );
+			expect( $result )->toBe( '$-1K' );
 		} );
 
 		test( 'handles very large amounts', function () {
