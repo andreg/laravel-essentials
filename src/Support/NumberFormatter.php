@@ -2,7 +2,7 @@
 
 namespace Andreg\LaravelEssentials\Support;
 
-class Numbers {
+class NumberFormatter {
 
 	/**
 	 * Format a number according to the specified locale.

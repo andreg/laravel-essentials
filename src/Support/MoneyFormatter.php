@@ -4,7 +4,7 @@ namespace Andreg\LaravelEssentials\Support;
 
 use Illuminate\Support\Number;
 
-class Money {
+class MoneyFormatter {
 
 	public function __construct(
 		protected string $currencyCode = 'USD',
