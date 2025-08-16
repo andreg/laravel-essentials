@@ -8,16 +8,14 @@ describe( 'Money', function () {
 			$money = new \Andreg\LaravelEssentials\Support\MoneyFormatter();
 
 			expect( $money->display( 100 ) )
-				->toContain( '$' )
-				->toContain( '100' );
+				->toContain( '$100' );
 		} );
 
 		test( 'creates instance with custom currency code', function () {
 			$money = new MoneyFormatter( 'EUR' );
 
 			expect( $money->display( 100 ) )
-				->toContain( '€' )
-				->toContain( '100' );
+				->toContain( '100 €' );
 		} );
 
 		test( 'creates instance with custom locale', function () {
