@@ -17,7 +17,7 @@ class MoneyFormatter {
 		$this->locale = $locale ?? ( app()->bound( 'translator' ) ? app()->getLocale() : 'en' );
 	}
 
-	public function display( $amount, bool $abbreviate = false ): string {
+	public function display( string $amount, bool $abbreviate = false ): string|false {
 		if ( true === $abbreviate ) {
 			// Get the properly formatted currency for reference
 			$normalFormatted = Number::currency(
@@ -27,31 +27,35 @@ class MoneyFormatter {
 			);
 
 			// Get abbreviated amount
-			$abbreviatedAmount = Number::abbreviate( $amount, 1, 2 );
+			$abbreviatedAmount = Number::abbreviate( floatval( $amount ), 1, 2 );
 
 			// Fix decimal separator to match locale
 			// Get a sample number to determine the locale's decimal separator
 			$sampleFormatted = Number::currency( 1.5, $this->currencyCode, $this->locale );
-			if ( str_contains( $sampleFormatted, '1,5' ) ) {
+			if ( is_string( $sampleFormatted ) && is_string( $abbreviatedAmount ) && str_contains( $sampleFormatted, '1,5' ) ) {
 				// Locale uses comma as decimal separator
 				$abbreviatedAmount = str_replace( '.', ',', $abbreviatedAmount );
 			}
 
+			$result = '';
+
 			// Replace the number part with our abbreviated amount
 			// This handles formats like "$1.00", "1,00 €", etc.
-			$result = preg_replace( '/1(?:[.,]\d+)?/', $abbreviatedAmount, $normalFormatted );
+			if ( is_string( $normalFormatted ) && is_string( $abbreviatedAmount ) ) {
+				$result = preg_replace( '/1(?:[.,]\d+)?/', $abbreviatedAmount, $normalFormatted );
+			}
 
-			return $result;
+			return (string) $result;
 		}
 
 		return Number::currency(
-			number: $amount,
+			number: floatval( $amount ),
 			in: $this->currencyCode,
 			locale: $this->locale
 		);
 	}
 
-	public function abbreviated( $amount ): string {
+	public function abbreviated( string $amount ): string|false {
 		return $this->display( $amount, true );
 	}
 
