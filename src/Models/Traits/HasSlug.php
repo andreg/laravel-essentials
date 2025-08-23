@@ -5,6 +5,7 @@ namespace Andreg\LaravelEssentials\Models\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+// @phpstan-ignore-next-line
 trait HasSlug {
 
 	private string $slugField  = 'slug';

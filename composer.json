@@ -1,36 +1,36 @@
 {
-    "name": "andreg/laravel-essentials",
-    "description": "Laravel essentials package.",
-    "type": "library",
-    "license": "MIT",
+	"name": "andreg/laravel-essentials",
+	"description": "Laravel essentials package.",
+	"type": "library",
+	"license": "MIT",
 	"minimum-stability": "beta",
-    "autoload": {
-        "psr-4": {
-            "Andreg\\LaravelEssentials\\": "src/",
-	    	"Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Andrea Gandino",
-            "email": "andreagandino@gmail.com"
-        }
-    ],
-    "require-dev": {
-        "pestphp/pest": "^3.8",
-        "phpstan/phpstan": "^2.1"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "require": {
-        "illuminate/contracts": "^12.21",
-        "laravel/framework": "^12.22"
-    },
-    "scripts": {
+	"autoload": {
+		"psr-4": {
+			"Andreg\\LaravelEssentials\\": "src/",
+			"Tests\\": "tests/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Andrea Gandino",
+			"email": "andreagandino@gmail.com"
+		}
+	],
+	"require-dev": {
+		"pestphp/pest": "^3.8",
+		"phpstan/phpstan": "^2.1"
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	},
+	"require": {
+		"illuminate/contracts": "^12.21",
+		"laravel/framework": "^12.22"
+	},
+	"scripts": {
 		"test": "./vendor/bin/pest",
 		"stan": "./vendor/bin/phpstan analyse src --level=8"
-    }
+	}
 }

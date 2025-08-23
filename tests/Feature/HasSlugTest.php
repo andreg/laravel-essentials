@@ -1,14 +1,6 @@
 <?php
 
-use Andreg\LaravelEssentials\Models\Traits\HasSlug;
-use Illuminate\Database\Eloquent\Model;
-
-class FakeModelWithSlug extends Model {
-	use HasSlug;
-
-	protected $fillable = [ 'name', 'slug' ];
-
-}
+use Tests\Feature\Mocks\FakeModelWithSlug;
 
 describe( 'HasSlug', function () {
 	describe( 'generateSlug method', function () {
